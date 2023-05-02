@@ -1,6 +1,8 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { MantineProvider, Text } from '@mantine/core';
+import { Group, Button } from '@mantine/core';
+
+
 import './App.css'
 import List from './containers/list/List'
 
@@ -8,10 +10,15 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div className="App">
+    <MantineProvider withGlobalStyles withNormalizeCSS>
+      <Text>Welcome to Check.it!</Text>
       <List />
-
-    </div>
+      <Group>
+      <Button variant="outline">1</Button>
+      <Button variant="outline">2</Button>
+      <Button variant="outline">3</Button>
+    </Group>
+    </MantineProvider>
   )
 }
 
