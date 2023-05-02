@@ -16,7 +16,15 @@ export default function Task({
         completed: taskProps.completed
     })
 
+    const handleCheck = (
+
+    ) => {
+        const newCompletedState = !task.completed
+        setTask({...task, completed: newCompletedState})
+        console.log(newCompletedState)
+    }
+
     return (
-        <Checkbox checked={task.completed} label={task.name} />
+        <Checkbox checked={task.completed} label={task.name} onChange={handleCheck} />
     )
 }

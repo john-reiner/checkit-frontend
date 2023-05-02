@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { TaskType } from '../../types/TaskType'
+import { Stack, Divider, Container } from '@mantine/core';
+
 
 import Task  from './Task'
 
@@ -40,9 +42,13 @@ export default function List({
     }
 
     return (
-        <div>
+        <Container>
             <h2>Tasks</h2>
-            {renderTasks(tasks)}
-        </div>
+            <Divider my="sm" />
+            <Stack>
+                {renderTasks(tasks)}
+            </Stack>
+
+        </Container>
     )
 }

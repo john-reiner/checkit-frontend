@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@datadog/browser-rum": "^4.41.0",
     "@emotion/react": "^11.10.8",
     "@mantine/core": "^6.0.10",
     "@mantine/hooks": "^6.0.10",
