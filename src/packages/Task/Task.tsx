@@ -21,7 +21,6 @@ export default function Task({
     ) => {
         const newCompletedState = !task.completed
         setTask({...task, completed: newCompletedState})
-        console.log(newCompletedState)
     }
 
     return (

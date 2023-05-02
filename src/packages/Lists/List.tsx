@@ -4,6 +4,7 @@ import { Stack, Divider, Container, TextInput } from '@mantine/core';
 
 
 import Task  from '../Task/Task'
+import NewTask from '../Task/NewTask';
 
 
 interface ListProps {
@@ -44,11 +45,7 @@ export default function List({
     return (
         <Container>
             <h2>Tasks</h2>
-            <TextInput
-                placeholder="New Task"
-                variant="filled"
-                radius="xl"
-            />
+            <NewTask tasks={tasks} setTasks={setTasks}/>
             <Divider my="sm" />
 
             <Stack>
