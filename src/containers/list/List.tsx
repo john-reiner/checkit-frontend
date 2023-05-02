@@ -15,6 +15,14 @@ export default function List({
         {
             name: 'a fake task to test',
             completed: false
+        },
+        {
+            name: 'a fake task to test',
+            completed: false
+        },
+        {
+            name: 'a fake task to test',
+            completed: false
         }
     ]);
 
