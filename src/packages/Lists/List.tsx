@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import { TaskType } from '../../types/TaskType'
-import { Stack, Divider, Container } from '@mantine/core';
+import { TaskType } from '../Task/types/TaskType'
+import { Stack, Divider, Container, TextInput } from '@mantine/core';
 
 
-import Task  from './Task'
+import Task  from '../Task/Task'
 
 
 interface ListProps {
@@ -44,7 +44,13 @@ export default function List({
     return (
         <Container>
             <h2>Tasks</h2>
+            <TextInput
+                placeholder="New Task"
+                variant="filled"
+                radius="xl"
+            />
             <Divider my="sm" />
+
             <Stack>
                 {renderTasks(tasks)}
             </Stack>

@@ -23,7 +23,7 @@ datadogRum.startSessionReplayRecording();
 
 
 import './App.css'
-import List from './containers/list/List'
+import List from './packages/Lists/List'
 
 function App() {
   const [count, setCount] = useState(0)

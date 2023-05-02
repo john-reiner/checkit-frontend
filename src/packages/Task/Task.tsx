@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { TaskType } from '../../types/TaskType'
+import { TaskType } from './types/TaskType'
 
 import { Checkbox } from '@mantine/core';
 
