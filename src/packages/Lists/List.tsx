@@ -39,7 +39,6 @@ export default function List({
             <Stack>
                 {renderTasks()}
             </Stack>
-
         </Container>
     )
 }

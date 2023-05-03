@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { TaskType } from './types/TaskType'
 import { IconAdjustments, IconTrash } from '@tabler/icons-react';
 
-import { ActionIcon, Checkbox, Group, Space, TextInput } from '@mantine/core';
+import { ActionIcon, Checkbox, Group, Paper, Space, TextInput } from '@mantine/core';
 
 interface TaskProps {
     taskProps: TaskType 
@@ -45,30 +45,31 @@ export default function Task({
 
 
     return (
-
-        <Group>
-            {editName ? 
-                <form onSubmit={handleSubmit}>
-                    <TextInput
-                        placeholder="New Task"
-                        variant="filled"
-                        radius="xl"
-                        value={task.name}
-                        onChange={handleTaskChange}
-                        name='name'
-                    />                    
-                </form> :
-            <Checkbox checked={task.completed} label={task.name} onChange={handleCheck} />
-        }
-            <Space w="md" />
-            <Group>
-                <ActionIcon color="blue" radius="xl" variant="outline" onClick={() => setEditName(!editName)}>
-                <   IconAdjustments size="1.125rem" />
-                </ActionIcon>
-                <ActionIcon color="red" radius="xl" variant="outline" onClick={() => handleDelete(task.id)}>
-                <   IconTrash size="1.125rem" />
-                </ActionIcon>
+        <Paper shadow="xs" p="xs" withBorder> 
+            <Group position="apart">
+                {editName ? 
+                    <form onSubmit={handleSubmit}>
+                        <TextInput
+                            placeholder="New Task"
+                            variant="filled"
+                            radius="xl"
+                            value={task.name}
+                            onChange={handleTaskChange}
+                            name='name'
+                        />                    
+                    </form> :
+                <Checkbox checked={task.completed} label={task.name} onChange={handleCheck} />
+            }
+                <Space w="md" />
+                <Group>
+                    <ActionIcon color="blue" radius="xl" variant="outline" onClick={() => setEditName(!editName)}>
+                    <   IconAdjustments size="1.125rem" />
+                    </ActionIcon>
+                    <ActionIcon color="red" radius="xl" variant="outline" onClick={() => handleDelete(task.id)}>
+                    <   IconTrash size="1.125rem" />
+                    </ActionIcon>
+                </Group>
             </Group>
-        </Group>
+        </Paper>
     )
 }
