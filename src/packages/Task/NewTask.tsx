@@ -15,7 +15,8 @@ export default function NewTask({
     const [newTask, setNewTask] = useState<TaskType>(
         {
             name: '',
-            completed: false
+            completed: false,
+            id: 0
         });
 
     useEffect(() => {
@@ -31,10 +32,12 @@ export default function NewTask({
         e: React.FormEvent<HTMLFormElement>
     ) => {
         e.preventDefault()
+        newTask.id = tasks.length
         setTasks([...tasks, newTask])
         setNewTask({
                 name: '',
-                completed: false
+                completed: false,
+                id: 0
             })
     }
 

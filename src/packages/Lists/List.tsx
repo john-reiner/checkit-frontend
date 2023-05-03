@@ -14,32 +14,21 @@ export default function List({
     
 }: ListProps) {
 
-    const [tasks, setTasks] = useState<TaskType[]>([
-        {
-            name: 'a fake task to test',
-            completed: false
-        },
-        {
-            name: 'a fake task to test',
-            completed: false
-        },
-        {
-            name: 'a fake task to test',
-            completed: false
-        }
-    ]);
-
-    useEffect(() => {
-    }, []);
+    const [tasks, setTasks] = useState<TaskType[]>([]);
 
     const renderTasks = (
-        tasks: TaskType[]
     ) => {
         if (tasks && tasks.length > 0) {
             return tasks.map(task => {
-                return <Task taskProps={{...task}}/>
+                return <Task taskProps={{...task}} handleDelete={handleDelete} key={task.id}/>
             })
         }
+    }
+
+    const handleDelete = (
+        id: number,
+    ) => {
+        setTasks(tasks.filter(task => task.id !== id))
     }
 
     return (
@@ -47,9 +36,8 @@ export default function List({
             <h2>Tasks</h2>
             <NewTask tasks={tasks} setTasks={setTasks}/>
             <Divider my="sm" />
-
             <Stack>
-                {renderTasks(tasks)}
+                {renderTasks()}
             </Stack>
 
         </Container>

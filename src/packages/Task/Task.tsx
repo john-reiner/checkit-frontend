@@ -1,20 +1,23 @@
 import React, {useState, useEffect} from 'react'
 import { TaskType } from './types/TaskType'
-import { IconAdjustments } from '@tabler/icons-react';
+import { IconAdjustments, IconTrash } from '@tabler/icons-react';
 
-import { ActionIcon, Center, Checkbox, Group, Space, TextInput } from '@mantine/core';
+import { ActionIcon, Checkbox, Group, Space, TextInput } from '@mantine/core';
 
 interface TaskProps {
     taskProps: TaskType 
+    handleDelete: (id: number) => void
 }
 
 export default function Task({
-    taskProps
+    taskProps,
+    handleDelete
 }: TaskProps) {
 
     const [task, setTask] = useState<TaskType>({
         name: taskProps.name,
-        completed: taskProps.completed
+        completed: taskProps.completed,
+        id: taskProps.id
     })
 
     const [editName, setEditName] = useState<boolean>(false)
@@ -39,6 +42,8 @@ export default function Task({
         setEditName(false)
     }
 
+
+
     return (
 
         <Group>
@@ -56,9 +61,14 @@ export default function Task({
             <Checkbox checked={task.completed} label={task.name} onChange={handleCheck} />
         }
             <Space w="md" />
-            <ActionIcon color="blue" radius="xl" variant="outline" onClick={() => setEditName(!editName)}>
-            <   IconAdjustments size="1.125rem" />
-            </ActionIcon>
+            <Group>
+                <ActionIcon color="blue" radius="xl" variant="outline" onClick={() => setEditName(!editName)}>
+                <   IconAdjustments size="1.125rem" />
+                </ActionIcon>
+                <ActionIcon color="red" radius="xl" variant="outline" onClick={() => handleDelete(task.id)}>
+                <   IconTrash size="1.125rem" />
+                </ActionIcon>
+            </Group>
         </Group>
     )
 }
