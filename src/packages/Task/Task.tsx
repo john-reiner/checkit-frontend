@@ -50,7 +50,7 @@ export default function Task({
 
     return (
         <Paper shadow="xs" p="xs" withBorder> 
-            <TaskDrawer opened={opened} close={close} task={task}/>
+            <TaskDrawer opened={opened} close={close} task={task} setTask={setTask}/>
             <Group position="apart">
                 {editName ? 
                     <form onSubmit={handleSubmit}>
