@@ -32,13 +32,13 @@ export default function List({
     }
 
     return (
-        <Container>
+        <>
             <h2>Tasks</h2>
             <NewTask tasks={tasks} setTasks={setTasks}/>
             <Divider my="sm" />
             <Stack>
                 {renderTasks()}
             </Stack>
-        </Container>
+        </>
     )
 }

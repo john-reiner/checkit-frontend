@@ -5,6 +5,7 @@ import { MantineProvider, Text } from '@mantine/core';
 
 import './App.css'
 import List from './packages/Lists/List'
+import AppContainer from './AppContainer'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -12,7 +13,7 @@ function App() {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: 'dark' }}>
       <Text>Welcome to Check.it!</Text>
-        <List />
+        <AppContainer />
     </MantineProvider>
   )
 }
