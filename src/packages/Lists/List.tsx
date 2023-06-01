@@ -16,6 +16,18 @@ export default function List({
 
     const [tasks, setTasks] = useState<TaskType[]>([]);
 
+    useEffect(() => {
+        fetchTasks()
+      }, []);
+
+
+    const fetchTasks = () => {
+        fetch('http://localhost:3000/tasks')
+            .then(response => response.json())
+            .then(data => setTasks(data));
+    }
+    
+
     const renderTasks = (
     ) => {
         if (tasks && tasks.length > 0) {

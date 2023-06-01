@@ -31,8 +31,8 @@ export default function TaskDrawer({
                     checked={task.completed}
                     onChange={() => setTask({...task, completed: !task.completed})}
                     name='checked'
-
                 />
+                
             </Drawer>
     )
 }
