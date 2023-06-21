@@ -31,6 +31,7 @@ export default function Task({
     ) => {
         const newCompletedState = !task.completed
         setTask({...task, completed: newCompletedState})
+        updateFetchTask({completed: newCompletedState})
     }
 
     const handleTaskChange = (
@@ -44,6 +45,21 @@ export default function Task({
     ) => {
         e.preventDefault()
         setEditName(false)
+    }
+
+    const updateFetchTask = (
+        value: object
+    ) => {
+        fetch(`http://localhost:3000/tasks/${task.id}`,
+        {
+            method: 'PATCH',
+            body: JSON.stringify(value),
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+        })
+            .then(response => response.json())
+            .then(data => console.log(data));
     }
 
 

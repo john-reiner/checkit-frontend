@@ -16,8 +16,6 @@ export default function TaskDrawer({
     setTask
 }: TaskDrawerProps) {
 
-    console.log(task)
-
 
     return (
             <Drawer

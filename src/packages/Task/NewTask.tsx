@@ -32,13 +32,29 @@ export default function NewTask({
         e: React.FormEvent<HTMLFormElement>
     ) => {
         e.preventDefault()
-        newTask.id = tasks.length
+        newTask.id = tasks.length + 1
         setTasks([...tasks, newTask])
         setNewTask({
                 name: '',
                 completed: false,
                 id: 0
             })
+        fetchNewTask(newTask)
+    }
+
+    const fetchNewTask = (
+        task: TaskType
+    ) => {
+        fetch('http://localhost:3000/tasks',
+        {
+            method: 'POST',
+            body: JSON.stringify(task),
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+        })
+            .then(response => response.json())
+            .then(data => console.log("New Task Created"));
     }
 
 
