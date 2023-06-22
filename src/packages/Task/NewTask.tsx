@@ -2,6 +2,8 @@ import { TextInput } from '@mantine/core';
 import React, {useState, useEffect} from 'react'
 import { TaskType } from '../Task/types/TaskType'
 
+import NotificationDialog from '../Global/NotificationDialog';
+
 interface NewTaskProps {
     tasks: TaskType[]
     setTasks: React.Dispatch<React.SetStateAction<TaskType[]>>
@@ -16,11 +18,23 @@ export default function NewTask({
         {
             name: '',
             completed: false,
-            id: 0
+            id: 0,
         });
+    
+    const [notificationDetails, setNotificationDetails] = useState({
+        opened: false,
+        message: '',
+        title: '',
+    })
 
-    useEffect(() => {
-    }, []);
+    const closeDialog = () => {
+        console.log("closing")
+        setNotificationDetails({
+            opened: false,
+            message: '',
+            title: '',
+        })
+    }
 
     const handleNewTaskChange = (
         e: React.ChangeEvent<HTMLInputElement>
@@ -54,20 +68,38 @@ export default function NewTask({
             }
         })
             .then(response => response.json())
-            .then(data => console.log("New Task Created"));
+            .then(data => {
+                setNotificationDetails(
+                    {
+                        opened: true,
+                        message: `Task: "${data.name}" created!`,
+                        title: "Success!"
+                    }
+                )
+            });
     }
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <TextInput
-                placeholder="New Task"
-                variant="filled"
-                radius="xl"
-                value={newTask.name}
-                onChange={handleNewTaskChange}
-                name='name'
+        <>
+            <NotificationDialog 
+                opened={notificationDetails.opened} 
+                message={notificationDetails.message} 
+                title={notificationDetails.title}
+                closeDialog={closeDialog}
+
             />
-        </form>
+            <form onSubmit={handleSubmit}>
+                <TextInput
+                    placeholder="New Task"
+                    variant="filled"
+                    radius="xl"
+                    value={newTask.name}
+                    onChange={handleNewTaskChange}
+                    name='name'
+                />
+            </form>
+        
+        </>
     )
 }

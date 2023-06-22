@@ -1,19 +1,29 @@
-import { useDisclosure } from '@mantine/hooks';
 import { Dialog, Group, Button, Alert, Text } from '@mantine/core';
 import { IconAlertCircle } from '@tabler/icons-react';
 
-export default function NotificationDialog () {
-  const [opened, { toggle, close }] = useDisclosure(false);
+interface NotificationDialogProps {
+  opened: boolean
+  message: string,
+  title: string,
+  closeDialog: () => void
+}
+
+export default function NotificationDialog ({
+  opened,
+  message,
+  title,
+  closeDialog
+}: NotificationDialogProps) {
 
   return (
     <>
-      <Group position="center">
+      {/* <Group position="center">
         <Button onClick={toggle}>Toggle dialog</Button>
-      </Group>
+      </Group> */}
 
-      <Dialog opened={opened} withCloseButton onClose={close} size="lg" radius="md">
-        <Alert icon={<IconAlertCircle size="1rem" />} title="Bummer!" color="red">
-          Something terrible happened! You made a mistake and there is no going back, your data was lost forever!
+      <Dialog opened={opened} withCloseButton onClose={closeDialog} size="lg" radius="md">
+        <Alert icon={<IconAlertCircle size="1rem" />} title={title} color="green">
+          {message}
         </Alert>
       </Dialog>
     </>

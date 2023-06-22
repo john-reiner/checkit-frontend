@@ -12,7 +12,6 @@ import {
 } from '@mantine/core';
 
 import List from './packages/Lists/List'
-import NotificationDialog from './packages/Global/NotificationDialog'
 
 export default function AppShellDemo() {
   const theme = useMantineTheme();
@@ -44,7 +43,6 @@ export default function AppShellDemo() {
       }
     >
       <List />
-      <NotificationDialog />
     </AppShell>
   );
 }
