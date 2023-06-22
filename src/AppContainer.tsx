@@ -12,6 +12,7 @@ import {
 } from '@mantine/core';
 
 import List from './packages/Lists/List'
+import NotificationDialog from './packages/Global/NotificationDialog'
 
 export default function AppShellDemo() {
   const theme = useMantineTheme();
@@ -23,13 +24,7 @@ export default function AppShellDemo() {
           background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
         },
       }}
-      navbarOffsetBreakpoint="sm"
-      asideOffsetBreakpoint="sm"
-      navbar={
-        <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
-          <Text>Application navbar</Text>
-        </Navbar>
-      }
+
       header={
         <Header height={{ base: 50, md: 70 }} p="md">
           <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
@@ -49,6 +44,7 @@ export default function AppShellDemo() {
       }
     >
       <List />
+      <NotificationDialog />
     </AppShell>
   );
 }

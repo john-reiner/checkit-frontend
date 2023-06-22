@@ -50,11 +50,12 @@ export default function List({
         })
             .then(response => response.json())
             .then(data => console.log(data));
+        
     }
 
     return (
         <>
-            <h2>Tasks</h2>
+            
             <NewTask tasks={tasks} setTasks={setTasks}/>
             <Divider my="sm" />
             <Stack>
