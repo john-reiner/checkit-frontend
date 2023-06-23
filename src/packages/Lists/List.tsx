@@ -31,7 +31,7 @@ export default function List({
 
 
     return (
-        <Paper shadow="xs" p="md" withBorder>
+        <Paper shadow="xs" p="md" >
             <Title order={2}>{listTitle}</Title>   
             <Divider my="sm" />
                 <Stack spacing="xs">

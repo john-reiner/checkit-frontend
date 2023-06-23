@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import { TaskType } from './types/TaskType'
-import { IconZoomIn, IconTrash } from '@tabler/icons-react';
+import { IconZoomIn, IconTrash, IconSquare, IconSquareCheck } from '@tabler/icons-react';
 
-import { ActionIcon, Checkbox, Group, Paper, Space, TextInput } from '@mantine/core';
+import { ActionIcon, Checkbox, Group, Paper, Space, Text, TextInput } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
 interface TaskProps {
@@ -59,12 +59,34 @@ export default function Task({
             .then(data => console.log(data));
     }
 
+    const handleIconRender = () => {
+        if (task.completed) {
+            return <IconSquareCheck color='green' size="1.5rem" />
+        } else {
+            return <IconSquare size="1.5rem" />
+        }
+    }
+
 
 
     return (
         <Paper shadow="xs" p="xs" withBorder> 
             <Group position="apart">
-                {editName ? 
+                <Group>
+                    <ActionIcon 
+                        variant="transparent"
+                        onClick={handleCheck}
+                    >
+                        {handleIconRender()}
+                    </ActionIcon>
+                    <Text
+                        td={task.completed ? "line-through" : undefined}
+                    >
+                        {task.name}
+                    </Text>
+
+                </Group>
+                {/* {editName ? 
                     <form onSubmit={handleSubmit}>
                         <TextInput
                             placeholder="New Task"
@@ -75,8 +97,7 @@ export default function Task({
                             name='name'
                         />                    
                     </form> :
-                <Checkbox checked={task.completed} label={task.name} onChange={handleCheck} />
-            }
+            } */}
                 <Space w="md" />
                 <Group>
                     <ActionIcon color="blue" radius="xl" variant="outline" onClick={open}>
