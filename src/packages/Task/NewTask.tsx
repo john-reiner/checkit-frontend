@@ -75,7 +75,7 @@ export default function NewTask({
                         opened: true,
                         message: `Task: "${data.name}" created!`,
                         title: "Success!",
-                        timeout: 5
+                        timeout: 3
                     }
                 )
             });
@@ -95,7 +95,7 @@ export default function NewTask({
                 <TextInput
                     placeholder="New Task"
                     variant="filled"
-                    radius="xs"
+                    radius="sm"
                     value={newTask.name}
                     onChange={handleNewTaskChange}
                     name='name'

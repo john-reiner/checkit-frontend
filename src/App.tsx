@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import { MantineProvider, Text } from '@mantine/core';
 
-
-
 import './App.css'
-import List from './packages/Lists/List'
 import AppContainer from './AppContainer'
 
 function App() {
