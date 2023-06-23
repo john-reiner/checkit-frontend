@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { TaskType } from '../Task/types/TaskType'
-import { Stack, Divider, Container, TextInput } from '@mantine/core';
+import { Stack, Divider, Container, TextInput, Paper, Title } from '@mantine/core';
 
 
 import Task  from '../Task/Task'
@@ -8,10 +8,11 @@ import NewTask from '../Task/NewTask';
 
 
 interface ListProps {
+    listTitle: string
 }
 
 export default function List({
-    
+    listTitle
 }: ListProps) {
 
     const [tasks, setTasks] = useState<TaskType[]>([]);
@@ -54,13 +55,13 @@ export default function List({
     }
 
     return (
-        <>
-            
-            <NewTask tasks={tasks} setTasks={setTasks}/>
+        <Paper shadow="xs" p="md" withBorder>
+            <Title order={2}>{listTitle}</Title>   
             <Divider my="sm" />
             <Stack>
                 {renderTasks()}
+                <NewTask tasks={tasks} setTasks={setTasks}/>
             </Stack>
-        </>
+        </Paper>
     )
 }

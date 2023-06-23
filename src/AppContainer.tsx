@@ -42,7 +42,7 @@ export default function AppShellDemo() {
         </Header>
       }
     >
-      <List />
+      <List listTitle='Incomplete' />
     </AppShell>
   );
 }
