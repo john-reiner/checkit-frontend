@@ -19,7 +19,6 @@ export default function NotificationDialog ({
 }: NotificationDialogProps) {
 
   useEffect(() => {
-    console.log(timeout)
     if (timeout > 0) {
       setTimeout(() => {
         closeDialog()
