@@ -9,24 +9,15 @@ import NewTask from '../Task/NewTask';
 
 interface ListProps {
     listTitle: string
+    tasks: TaskType[]
+    setTasks: React.Dispatch<React.SetStateAction<TaskType[]>>
 }
 
 export default function List({
-    listTitle
+    listTitle,
+    tasks,
+    setTasks
 }: ListProps) {
-
-    const [tasks, setTasks] = useState<TaskType[]>([]);
-
-    useEffect(() => {
-        fetchTasks()
-      }, []);
-
-
-    const fetchTasks = () => {
-        fetch('http://localhost:3000/tasks')
-            .then(response => response.json())
-            .then(data => setTasks(data));
-    }
     
 
     const renderTasks = (

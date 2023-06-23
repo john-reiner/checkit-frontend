@@ -95,7 +95,7 @@ export default function NewTask({
                 <TextInput
                     placeholder="New Task"
                     variant="filled"
-                    radius="xl"
+                    radius="xs"
                     value={newTask.name}
                     onChange={handleNewTaskChange}
                     name='name'

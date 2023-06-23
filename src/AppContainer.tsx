@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   AppShell,
   Navbar,
@@ -12,10 +12,24 @@ import {
 } from '@mantine/core';
 
 import List from './packages/Lists/List'
+import { TaskType } from './packages/Task/types/TaskType';
 
 export default function AppShellDemo() {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
+  const [tasks, setTasks] = useState<TaskType[]>([]);
+
+  useEffect(() => {
+    fetchTasks()
+  }, []);
+
+  const fetchTasks = () => {
+    fetch('http://localhost:3000/tasks')
+      .then(response => response.json())
+      .then(data => setTasks(data));
+  }
+
+
   return (
     <AppShell
       styles={{
@@ -42,7 +56,11 @@ export default function AppShellDemo() {
         </Header>
       }
     >
-      <List listTitle='Incomplete' />
+      <List 
+        listTitle='Tasks' 
+        tasks={tasks}
+        setTasks={setTasks}
+      />
     </AppShell>
   );
 }
