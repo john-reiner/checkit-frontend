@@ -3,17 +3,14 @@ import { TaskType } from './types/TaskType'
 import { IconZoomIn, IconTrash } from '@tabler/icons-react';
 
 import { ActionIcon, Checkbox, Group, Paper, Space, TextInput } from '@mantine/core';
-import TaskDrawer from './TaskDrawer';
 import { useDisclosure } from '@mantine/hooks';
 
 interface TaskProps {
     taskProps: TaskType 
-    handleDelete: (id: number) => void
 }
 
 export default function Task({
     taskProps,
-    handleDelete
 }: TaskProps) {
 
     const [task, setTask] = useState<TaskType>({
@@ -66,7 +63,6 @@ export default function Task({
 
     return (
         <Paper shadow="xs" p="xs" withBorder> 
-            <TaskDrawer opened={opened} close={close} task={task} setTask={setTask}/>
             <Group position="apart">
                 {editName ? 
                     <form onSubmit={handleSubmit}>
@@ -86,7 +82,7 @@ export default function Task({
                     <ActionIcon color="blue" radius="xl" variant="outline" onClick={open}>
                     <   IconZoomIn size="1.125rem" />
                     </ActionIcon>
-                    <ActionIcon color="red" radius="xl" variant="outline" onClick={() => handleDelete(task.id)}>
+                    <ActionIcon color="red" radius="xl" variant="outline">
                     <   IconTrash size="1.125rem" />
                     </ActionIcon>
                 </Group>

@@ -24,26 +24,11 @@ export default function List({
     ) => {
         if (tasks && tasks.length > 0) {
             return tasks.map(task => {
-                return <Task taskProps={{...task}} handleDelete={handleDelete} key={task.id}/>
+                return <Task taskProps={{...task}} key={task.id}/>
             })
         }
     }
 
-    const handleDelete = (
-        id: number,
-    ) => {
-        setTasks(tasks.filter(task => task.id !== id))
-        fetch(`http://localhost:3000/tasks/${id}`,
-        {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            }
-        })
-            .then(response => response.json())
-            .then(data => console.log(data));
-        
-    }
 
     return (
         <Paper shadow="xs" p="md" withBorder>
