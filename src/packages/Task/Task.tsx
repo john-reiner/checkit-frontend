@@ -4,6 +4,8 @@ import { IconZoomIn, IconTrash, IconSquare, IconSquareCheck } from '@tabler/icon
 
 import { ActionIcon, Checkbox, Group, Paper, Space, Text, TextInput } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { render } from 'react-dom';
+import NewTask from './NewTask';
 
 interface TaskProps {
     taskProps: TaskType 
@@ -37,16 +39,18 @@ export default function Task({
         setTask({...task, [e.target.name]: e.target.value})
     }
 
-    const handleSubmit = (
+    const handleNameSubmit = (
         e: React.FormEvent<HTMLFormElement>
     ) => {
+        updateFetchTask({"name": task.name})
         e.preventDefault()
         setEditName(false)
     }
 
     const updateFetchTask = (
-        value: object
+        value: object,
     ) => {
+
         fetch(`http://localhost:3000/tasks/${task.id}`,
         {
             method: 'PATCH',
@@ -67,6 +71,31 @@ export default function Task({
         }
     }
 
+    const renderText = () => {
+        console.log(editName)
+        if (editName) {
+            return (
+                <form onSubmit={handleNameSubmit}>
+                    <TextInput
+
+                        value={task.name}
+                        onChange={handleTaskChange}
+                        name='name'
+                    />
+                </form>
+            )
+        } else {
+            return(
+                <Text
+                    td={task.completed ? "line-through" : undefined}
+                    onClick={() => setEditName(true)}
+
+                >
+                    {task.name}
+                </Text>
+            )
+        }
+    }
 
 
     return (
@@ -79,11 +108,8 @@ export default function Task({
                     >
                         {handleIconRender()}
                     </ActionIcon>
-                    <Text
-                        td={task.completed ? "line-through" : undefined}
-                    >
-                        {task.name}
-                    </Text>
+                    
+                    {renderText()}
 
                 </Group>
                 {/* {editName ? 
@@ -100,9 +126,6 @@ export default function Task({
             } */}
                 <Space w="md" />
                 <Group>
-                    <ActionIcon color="blue" radius="xl" variant="outline" onClick={open}>
-                    <   IconZoomIn size="1.125rem" />
-                    </ActionIcon>
                     <ActionIcon color="red" radius="xl" variant="outline">
                     <   IconTrash size="1.125rem" />
                     </ActionIcon>
