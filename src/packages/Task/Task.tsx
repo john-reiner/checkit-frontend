@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import { TaskType } from './types/TaskType'
-import { IconZoomIn, IconTrash, IconSquare, IconSquareCheck } from '@tabler/icons-react';
+import { IconZoomIn, IconTrash, IconSquare, IconSquareCheck, IconEditCircle } from '@tabler/icons-react';
 
 import { ActionIcon, Checkbox, Group, Paper, Space, Text, TextInput } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { render } from 'react-dom';
 import NewTask from './NewTask';
+import NotificationDialog from '../Global/NotificationDialog';
 
 interface TaskProps {
     taskProps: TaskType 
@@ -21,9 +22,22 @@ export default function Task({
         id: taskProps.id
     })
 
-    const [opened, { open, close }] = useDisclosure(false);
-
     const [editName, setEditName] = useState<boolean>(false)
+    const [notificationDetails, setNotificationDetails] = useState({
+        opened: false,
+        message: '',
+        title: '',
+        timeout: 0 
+    })
+
+    const closeDialog = () => {
+        setNotificationDetails({
+            opened: false,
+            message: '',
+            title: '',
+            timeout: 0
+        })
+    }
 
     const handleCheck = (
 
@@ -50,7 +64,7 @@ export default function Task({
     const updateFetchTask = (
         value: object,
     ) => {
-
+        setEditName(false)
         fetch(`http://localhost:3000/tasks/${task.id}`,
         {
             method: 'PATCH',
@@ -60,7 +74,16 @@ export default function Task({
             }
         })
             .then(response => response.json())
-            .then(data => console.log(data));
+            .then(data => {
+                setNotificationDetails(
+                    {
+                        opened: true,
+                        message: `Task: "${data.name}" updated!`,
+                        title: "Success!",
+                        timeout: 3
+                    }
+                )
+            });
     }
 
     const handleIconRender = () => {
@@ -72,7 +95,6 @@ export default function Task({
     }
 
     const renderText = () => {
-        console.log(editName)
         if (editName) {
             return (
                 <form onSubmit={handleNameSubmit}>
@@ -100,6 +122,13 @@ export default function Task({
 
     return (
         <Paper shadow="xs" p="xs" withBorder> 
+            <NotificationDialog 
+                opened={notificationDetails.opened} 
+                message={notificationDetails.message} 
+                title={notificationDetails.title}
+                closeDialog={closeDialog}
+                timeout={notificationDetails.timeout}
+            />
             <Group position="apart">
                 <Group>
                     <ActionIcon 
@@ -112,23 +141,16 @@ export default function Task({
                     {renderText()}
 
                 </Group>
-                {/* {editName ? 
-                    <form onSubmit={handleSubmit}>
-                        <TextInput
-                            placeholder="New Task"
-                            variant="filled"
-                            radius="xl"
-                            value={task.name}
-                            onChange={handleTaskChange}
-                            name='name'
-                        />                    
-                    </form> :
-            } */}
                 <Space w="md" />
                 <Group>
+                    <ActionIcon onClick={() => setEditName(!editName)} color="blue" radius="xl" variant="outline">
+                    <   IconEditCircle  size="1.125rem" />
+                    </ActionIcon>
                     <ActionIcon color="red" radius="xl" variant="outline">
                     <   IconTrash size="1.125rem" />
+                    
                     </ActionIcon>
+
                 </Group>
             </Group>
         </Paper>
