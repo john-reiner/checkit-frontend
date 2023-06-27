@@ -7,7 +7,8 @@ interface NotificationDialogProps {
   message: string,
   title: string,
   closeDialog: () => void,
-  timeout: number
+  timeout: number,
+  color: string
 }
 
 export default function NotificationDialog ({
@@ -15,7 +16,8 @@ export default function NotificationDialog ({
   message,
   title,
   timeout,
-  closeDialog
+  closeDialog,
+  color
 }: NotificationDialogProps) {
 
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function NotificationDialog ({
   return (
     <>
       <Dialog opened={opened} withCloseButton onClose={closeDialog} size="lg" radius="md">
-        <Alert icon={<IconAlertCircle size="1rem" />} title={title} color="green">
+        <Alert icon={<IconAlertCircle size="1rem" />} title={title} color={color}>
           {message}
         </Alert>
       </Dialog>

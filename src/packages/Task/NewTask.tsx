@@ -25,7 +25,8 @@ export default function NewTask({
         opened: false,
         message: '',
         title: '',
-        timeout: 0 
+        timeout: 0,
+        color: ""
     })
 
     const closeDialog = () => {
@@ -33,7 +34,8 @@ export default function NewTask({
             opened: false,
             message: '',
             title: '',
-            timeout: 0
+            timeout: 0,
+            color: ''
         })
     }
 
@@ -75,7 +77,8 @@ export default function NewTask({
                         opened: true,
                         message: `Task: "${data.name}" created!`,
                         title: "Success!",
-                        timeout: 3
+                        timeout: 3,
+                        color: 'green'
                     }
                 )
             });
@@ -90,6 +93,7 @@ export default function NewTask({
                 title={notificationDetails.title}
                 closeDialog={closeDialog}
                 timeout={notificationDetails.timeout}
+                color={notificationDetails.color}
             />
             <form onSubmit={handleSubmit}>
                 <TextInput

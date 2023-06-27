@@ -27,7 +27,8 @@ export default function Task({
         opened: false,
         message: '',
         title: '',
-        timeout: 0 
+        timeout: 0,
+        color: ""
     })
 
     const closeDialog = () => {
@@ -35,7 +36,8 @@ export default function Task({
             opened: false,
             message: '',
             title: '',
-            timeout: 0
+            timeout: 0,
+            color: ""
         })
     }
 
@@ -80,7 +82,8 @@ export default function Task({
                         opened: true,
                         message: `Task: "${data.name}" updated!`,
                         title: "Success!",
-                        timeout: 3
+                        timeout: 3,
+                        color: "green"
                     }
                 )
             });
@@ -128,6 +131,7 @@ export default function Task({
                 title={notificationDetails.title}
                 closeDialog={closeDialog}
                 timeout={notificationDetails.timeout}
+                color={notificationDetails.color}
             />
             <Group position="apart">
                 <Group>
@@ -148,9 +152,7 @@ export default function Task({
                     </ActionIcon>
                     <ActionIcon color="red" radius="xl" variant="outline">
                     <   IconTrash size="1.125rem" />
-                    
                     </ActionIcon>
-
                 </Group>
             </Group>
         </Paper>
