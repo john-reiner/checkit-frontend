@@ -4,8 +4,6 @@ import { IconTrash, IconSquare, IconSquareCheck, IconEditCircle } from '@tabler/
 
 import { ActionIcon, Group, Paper, Space, Text, TextInput } from '@mantine/core';
 
-// import NotificationDialog from '../Global/NotificationDialog';
-
 interface TaskProps {
     taskProps: TaskType
     deleteTask: (taskId: number | undefined) => void
@@ -31,23 +29,6 @@ export default function Task({
     })
 
     const [editName, setEditName] = useState<boolean>(false)
-    // const [notificationDetails, setNotificationDetails] = useState({
-    //     opened: false,
-    //     message: '',
-    //     title: '',
-    //     timeout: 0,
-    //     color: ""
-    // })
-
-    // const closeDialog = () => {
-    //     setNotificationDetails({
-    //         opened: false,
-    //         message: '',
-    //         title: '',
-    //         timeout: 0,
-    //         color: ""
-    //     })
-    // }
 
     const handleCheck = (
 
@@ -156,15 +137,6 @@ export default function Task({
 
     return (
         <Paper shadow="xs" p="xs" withBorder> 
-            {/* <NotificationDialog 
-                opened={notificationDetails.opened} 
-                message={notificationDetails.message} 
-                title={notificationDetails.title}
-                closeDialog={closeDialog}
-                timeout={notificationDetails.timeout}
-                color={notificationDetails.color}
-            /> */}
-
             <Group position="apart">
                 <Group>
                     <ActionIcon 

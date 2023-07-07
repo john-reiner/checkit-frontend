@@ -1,5 +1,5 @@
 import { TextInput } from '@mantine/core';
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { TaskType } from '../Task/types/TaskType'
 
 interface NewTaskProps {
@@ -26,7 +26,6 @@ export default function NewTask({
         {
             name: '',
             completed: false,
-            // id: tasks.length
         });
     
     const handleNewTaskChange = (
@@ -42,13 +41,11 @@ export default function NewTask({
         setNewTask({
                 name: '',
                 completed: false,
-                // id: 0
             })
         fetchNewTask()
     }
 
     const fetchNewTask = (
-        // task: TaskType
     ) => {
         fetch(route,
         {
@@ -76,7 +73,6 @@ export default function NewTask({
 
     return (
         <>
-
             <form onSubmit={handleSubmit}>
                 <TextInput
                     placeholder="New Task"
@@ -87,7 +83,6 @@ export default function NewTask({
                     name='name'
                 />
             </form>
-        
         </>
     )
 }
