@@ -5,6 +5,7 @@ import { Stack, Divider, Paper, Title } from '@mantine/core';
 
 import Task  from '../Task/Task'
 import NewTask from '../Task/NewTask';
+import NotificationDialog from '../Global/NotificationDialog';
 
 
 interface ListProps {
@@ -18,6 +19,13 @@ export default function List({
 }: ListProps) {
 
     const [tasks, setTasks] = useState<TaskType[]>([]);
+    const [notificationDetails, setNotificationDetails] = useState({
+        opened: false,
+        message: '',
+        title: '',
+        timeout: 0,
+        color: ""
+    })
 
     useEffect(() => {
       fetchTasks()
@@ -28,6 +36,16 @@ export default function List({
           .then(response => response.json())
           .then(data => setTasks(data));
       }
+
+    const closeDialog = () => {
+        setNotificationDetails({
+            opened: false,
+            message: '',
+            title: '',
+            timeout: 0,
+            color: ''
+        })
+    }
 
     const renderTasks = (
     ) => {
@@ -47,13 +65,28 @@ export default function List({
 
 
     return (
-        <Paper shadow="xs" p="md" >
-            <Title order={2}>{listTitle}</Title>   
-            <Divider my="sm" />
-                <Stack spacing="xs">
-                    {renderTasks()}
-                    <NewTask route={route} tasks={tasks} setTasks={setTasks}/>
-                </Stack>
-        </Paper>
+        <>
+            <NotificationDialog 
+                opened={notificationDetails.opened} 
+                message={notificationDetails.message} 
+                title={notificationDetails.title}
+                closeDialog={closeDialog}
+                timeout={notificationDetails.timeout}
+                color={notificationDetails.color}
+            />
+            <Paper shadow="xs" p="md" >
+                <Title order={2}>{listTitle}</Title>   
+                <Divider my="sm" />
+                    <Stack spacing="xs">
+                        {renderTasks()}
+                        <NewTask 
+                            route={route} 
+                            tasks={tasks} 
+                            setTasks={setTasks}
+                            setNotificationDetails={setNotificationDetails}
+                        />
+                    </Stack>
+            </Paper>
+        </>
     )
 }
