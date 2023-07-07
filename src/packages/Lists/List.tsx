@@ -51,16 +51,23 @@ export default function List({
     ) => {
         if (tasks && tasks.length > 0) {
             return tasks.map(task => {
-                return <Task taskProps={{...task}} key={task.id} deleteTask={deleteTask}/>
+                return <Task 
+                            taskProps={{...task}} 
+                            key={task.id} 
+                            deleteTask={deleteTask}
+                            setNotificationDetails={setNotificationDetails}
+                        />
             })
         }
     }
 
     const deleteTask = (
-        taskId: number
+        taskId: number | undefined
       ) => {
-        var newTaskList = tasks.filter(task =>  task.id !== taskId)
-        setTasks(newTaskList)
+        if (taskId) {
+            var newTaskList = tasks.filter(task =>  task.id !== taskId)
+            setTasks(newTaskList)
+        }
       }
 
 

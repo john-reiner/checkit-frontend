@@ -4,16 +4,24 @@ import { IconTrash, IconSquare, IconSquareCheck, IconEditCircle } from '@tabler/
 
 import { ActionIcon, Group, Paper, Space, Text, TextInput } from '@mantine/core';
 
-import NotificationDialog from '../Global/NotificationDialog';
+// import NotificationDialog from '../Global/NotificationDialog';
 
 interface TaskProps {
     taskProps: TaskType
-    deleteTask: (taskId: number) => void
+    deleteTask: (taskId: number | undefined) => void
+    setNotificationDetails: React.Dispatch<React.SetStateAction<{
+        opened: boolean;
+        message: string;
+        title: string;
+        timeout: number;
+        color: string;
+    }>>
 }
 
 export default function Task({
     taskProps,
-    deleteTask
+    deleteTask,
+    setNotificationDetails
 }: TaskProps) {
 
     const [task, setTask] = useState<TaskType>({
@@ -23,23 +31,23 @@ export default function Task({
     })
 
     const [editName, setEditName] = useState<boolean>(false)
-    const [notificationDetails, setNotificationDetails] = useState({
-        opened: false,
-        message: '',
-        title: '',
-        timeout: 0,
-        color: ""
-    })
+    // const [notificationDetails, setNotificationDetails] = useState({
+    //     opened: false,
+    //     message: '',
+    //     title: '',
+    //     timeout: 0,
+    //     color: ""
+    // })
 
-    const closeDialog = () => {
-        setNotificationDetails({
-            opened: false,
-            message: '',
-            title: '',
-            timeout: 0,
-            color: ""
-        })
-    }
+    // const closeDialog = () => {
+    //     setNotificationDetails({
+    //         opened: false,
+    //         message: '',
+    //         title: '',
+    //         timeout: 0,
+    //         color: ""
+    //     })
+    // }
 
     const handleCheck = (
 
@@ -148,14 +156,14 @@ export default function Task({
 
     return (
         <Paper shadow="xs" p="xs" withBorder> 
-            <NotificationDialog 
+            {/* <NotificationDialog 
                 opened={notificationDetails.opened} 
                 message={notificationDetails.message} 
                 title={notificationDetails.title}
                 closeDialog={closeDialog}
                 timeout={notificationDetails.timeout}
                 color={notificationDetails.color}
-            />
+            /> */}
 
             <Group position="apart">
                 <Group>

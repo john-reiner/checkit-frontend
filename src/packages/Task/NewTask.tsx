@@ -26,7 +26,7 @@ export default function NewTask({
         {
             name: '',
             completed: false,
-            id: tasks.length
+            // id: tasks.length
         });
     
     const handleNewTaskChange = (
@@ -38,25 +38,22 @@ export default function NewTask({
     const handleSubmit = (
         e: React.FormEvent<HTMLFormElement>
     ) => {
-        console.log("New Task ID: ", newTask.id)
-        console.log("tasks: ", tasks)
         e.preventDefault()
-        
         setNewTask({
                 name: '',
                 completed: false,
-                id: 0
+                // id: 0
             })
-        fetchNewTask(newTask)
+        fetchNewTask()
     }
 
     const fetchNewTask = (
-        task: TaskType
+        // task: TaskType
     ) => {
         fetch(route,
         {
             method: 'POST',
-            body: JSON.stringify(task),
+            body: JSON.stringify(newTask),
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             }
@@ -64,7 +61,6 @@ export default function NewTask({
             .then(response => response.json())
             .then(returnedTask => {
                 setTasks([...tasks, returnedTask])
-
                 setNotificationDetails(
                     {
                         opened: true,
