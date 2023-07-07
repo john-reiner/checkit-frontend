@@ -9,25 +9,42 @@ import NewTask from '../Task/NewTask';
 
 interface ListProps {
     listTitle: string
-    tasks: TaskType[]
-    setTasks: React.Dispatch<React.SetStateAction<TaskType[]>>
+    route: string
 }
 
 export default function List({
     listTitle,
-    tasks,
-    setTasks
+    route,
 }: ListProps) {
-    
+
+    const [tasks, setTasks] = useState<TaskType[]>([]);
+
+    useEffect(() => {
+      fetchTasks()
+    }, []);
+
+    const fetchTasks = () => {
+        fetch(route)
+          .then(response => response.json())
+          .then(data => setTasks(data));
+      }
 
     const renderTasks = (
     ) => {
         if (tasks && tasks.length > 0) {
             return tasks.map(task => {
-                return <Task taskProps={{...task}} key={task.id}/>
+                return <Task taskProps={{...task}} key={task.id} deleteTask={deleteTask}/>
             })
         }
     }
+
+    const deleteTask = (
+        taskId: number
+      ) => {
+        console.log(`deleting task ${taskId}`)
+        var newTaskList = tasks.filter(task =>  task.id !== taskId)
+        setTasks(newTaskList)
+      }
 
 
     return (

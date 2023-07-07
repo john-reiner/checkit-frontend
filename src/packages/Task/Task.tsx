@@ -1,19 +1,19 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { TaskType } from './types/TaskType'
-import { IconZoomIn, IconTrash, IconSquare, IconSquareCheck, IconEditCircle } from '@tabler/icons-react';
+import { IconTrash, IconSquare, IconSquareCheck, IconEditCircle } from '@tabler/icons-react';
 
-import { ActionIcon, Checkbox, Group, Paper, Space, Text, TextInput } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import { render } from 'react-dom';
-import NewTask from './NewTask';
+import { ActionIcon, Group, Paper, Space, Text, TextInput } from '@mantine/core';
+
 import NotificationDialog from '../Global/NotificationDialog';
 
 interface TaskProps {
-    taskProps: TaskType 
+    taskProps: TaskType
+    deleteTask: (taskId: number) => void
 }
 
 export default function Task({
     taskProps,
+    deleteTask
 }: TaskProps) {
 
     const [task, setTask] = useState<TaskType>({
@@ -122,6 +122,29 @@ export default function Task({
         }
     }
 
+    const handleDeleteClick = () => {
+        deleteTask(task.id)
+        fetch(`http://localhost:3000/tasks/${task.id}`,
+        {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            setNotificationDetails(
+                {
+                    opened: true,
+                    message: `Task: "${data.name}" deleted!`,
+                    title: "Success!",
+                    timeout: 3,
+                    color: "green"
+                }
+            )
+        });
+    }
 
     return (
         <Paper shadow="xs" p="xs" withBorder> 
@@ -133,6 +156,7 @@ export default function Task({
                 timeout={notificationDetails.timeout}
                 color={notificationDetails.color}
             />
+
             <Group position="apart">
                 <Group>
                     <ActionIcon 
@@ -150,7 +174,7 @@ export default function Task({
                     <ActionIcon onClick={() => setEditName(!editName)} color="blue" radius="xl" variant="outline">
                     <   IconEditCircle  size="1.125rem" />
                     </ActionIcon>
-                    <ActionIcon color="red" radius="xl" variant="outline">
+                    <ActionIcon color="red" radius="xl" variant="outline" onClick={handleDeleteClick}>
                     <   IconTrash size="1.125rem" />
                     </ActionIcon>
                 </Group>

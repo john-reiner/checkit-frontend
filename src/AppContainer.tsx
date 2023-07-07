@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
   AppShell,
-  Navbar,
   Header,
-  Footer,
-  Aside,
   Text,
   MediaQuery,
   Burger,
@@ -12,21 +9,17 @@ import {
 } from '@mantine/core';
 
 import List from './packages/Lists/List'
-import { TaskType } from './packages/Task/types/TaskType';
 
 export default function AppShellDemo() {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
-  const [tasks, setTasks] = useState<TaskType[]>([]);
 
-  useEffect(() => {
-    fetchTasks()
-  }, []);
-
-  const fetchTasks = () => {
-    fetch('http://localhost:3000/tasks')
-      .then(response => response.json())
-      .then(data => setTasks(data));
+  const deleteTask = (
+    taskId: number
+  ) => {
+    console.log(`deleting task ${taskId}`)
+    var newTaskList = tasks.filter(task =>  task.id !== taskId)
+    setTasks(newTaskList)
   }
 
 
@@ -58,8 +51,9 @@ export default function AppShellDemo() {
     >
       <List 
         listTitle='Tasks' 
-        tasks={tasks}
+        route={'http://localhost:3000/tasks'}
         setTasks={setTasks}
+        deleteTask={deleteTask}
       />
     </AppShell>
   );

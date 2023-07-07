@@ -18,7 +18,7 @@ export default function NewTask({
         {
             name: '',
             completed: false,
-            id: 0,
+            id: tasks.length
         });
     
     const [notificationDetails, setNotificationDetails] = useState({
@@ -48,8 +48,9 @@ export default function NewTask({
     const handleSubmit = (
         e: React.FormEvent<HTMLFormElement>
     ) => {
+        console.log("New Task ID: ", newTask.id)
+        console.log("tasks: ", tasks)
         e.preventDefault()
-        newTask.id = tasks.length + 1
         setTasks([...tasks, newTask])
         setNewTask({
                 name: '',
