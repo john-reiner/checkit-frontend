@@ -7,11 +7,13 @@ import NotificationDialog from '../Global/NotificationDialog';
 interface NewTaskProps {
     tasks: TaskType[]
     setTasks: React.Dispatch<React.SetStateAction<TaskType[]>>
+    route: string
 }
 
 export default function NewTask({
     tasks, 
-    setTasks
+    setTasks,
+    route
 }: NewTaskProps) {
 
     const [newTask, setNewTask] = useState<TaskType>(
@@ -51,7 +53,7 @@ export default function NewTask({
         console.log("New Task ID: ", newTask.id)
         console.log("tasks: ", tasks)
         e.preventDefault()
-        setTasks([...tasks, newTask])
+        
         setNewTask({
                 name: '',
                 completed: false,
@@ -63,7 +65,7 @@ export default function NewTask({
     const fetchNewTask = (
         task: TaskType
     ) => {
-        fetch('http://localhost:3000/tasks',
+        fetch(route,
         {
             method: 'POST',
             body: JSON.stringify(task),
@@ -72,16 +74,19 @@ export default function NewTask({
             }
         })
             .then(response => response.json())
-            .then(data => {
-                setNotificationDetails(
-                    {
-                        opened: true,
-                        message: `Task: "${data.name}" created!`,
-                        title: "Success!",
-                        timeout: 3,
-                        color: 'green'
-                    }
-                )
+            .then(returnedTask => {
+                console.log(returnedTask)
+                setTasks([...tasks, returnedTask])
+
+                // setNotificationDetails(
+                //     {
+                //         opened: true,
+                //         message: `Task: "${returnedTask.name}" created!`,
+                //         title: "Success!",
+                //         timeout: 3,
+                //         color: 'green'
+                //     }
+                // )
             });
     }
 

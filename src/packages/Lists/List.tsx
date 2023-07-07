@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { TaskType } from '../Task/types/TaskType'
-import { Stack, Divider, Container, Paper, Title, Space } from '@mantine/core';
+import { Stack, Divider, Paper, Title } from '@mantine/core';
 
 
 import Task  from '../Task/Task'
@@ -41,7 +41,6 @@ export default function List({
     const deleteTask = (
         taskId: number
       ) => {
-        console.log(`deleting task ${taskId}`)
         var newTaskList = tasks.filter(task =>  task.id !== taskId)
         setTasks(newTaskList)
       }
@@ -53,7 +52,7 @@ export default function List({
             <Divider my="sm" />
                 <Stack spacing="xs">
                     {renderTasks()}
-                    <NewTask tasks={tasks} setTasks={setTasks}/>
+                    <NewTask route={route} tasks={tasks} setTasks={setTasks}/>
                 </Stack>
         </Paper>
     )

@@ -14,13 +14,7 @@ export default function AppShellDemo() {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
 
-  const deleteTask = (
-    taskId: number
-  ) => {
-    console.log(`deleting task ${taskId}`)
-    var newTaskList = tasks.filter(task =>  task.id !== taskId)
-    setTasks(newTaskList)
-  }
+
 
 
   return (
@@ -52,8 +46,6 @@ export default function AppShellDemo() {
       <List 
         listTitle='Tasks' 
         route={'http://localhost:3000/tasks'}
-        setTasks={setTasks}
-        deleteTask={deleteTask}
       />
     </AppShell>
   );
