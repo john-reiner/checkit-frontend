@@ -10,7 +10,7 @@ interface NewTaskProps {
         opened: boolean;
         message: string;
         timeout: number;
-        color: string;
+        status: string
     }>>
 }
 
@@ -56,13 +56,25 @@ export default function NewTask({
         })
             .then(response => response.json())
             .then(returnedTask => {
+                if (returnedTask.success)
+                console.log(returnedTask)
                 setTasks([...tasks, returnedTask])
                 setNotificationDetails(
                     {
                         opened: true,
                         message: `Task: "${returnedTask.name}" created!`,
-                        timeout: 3,
-                        color: 'green'
+                        timeout: 5,
+                        status: 'success'
+                    }
+                )
+            })
+            .catch(errors => {
+                setNotificationDetails(
+                    {
+                        opened: true,
+                        message: `Something went wrong... Please try again later.`,
+                        timeout: 5,
+                        status: 'error'
                     }
                 )
             });

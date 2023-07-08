@@ -23,25 +23,36 @@ export default function List({
         opened: false,
         message: '',
         timeout: 0,
-        color: ""
+        status: "success"
     })
 
     useEffect(() => {
-      fetchTasks()
+        fetchTasks()
     }, []);
 
     const fetchTasks = () => {
         fetch(route)
-          .then(response => response.json())
-          .then(data => setTasks(data));
-      }
+        .then(response => response.json())
+        .then(data => setTasks(data))
+        .catch(errors => {
+            setNotificationDetails(
+                {
+                    opened: true,
+                    message: `Something went wrong... Please try again later.`,
+                    timeout: 5,
+                    status: 'error'
+                }
+            )
+        });
+    }
+
 
     const closeDialog = () => {
         setNotificationDetails({
             opened: false,
             message: '',
             timeout: 0,
-            color: ''
+            status: ''
         })
     }
 
@@ -61,12 +72,12 @@ export default function List({
 
     const deleteTask = (
         taskId: number | undefined
-      ) => {
+    ) => {
         if (taskId) {
             var newTaskList = tasks.filter(task =>  task.id !== taskId)
             setTasks(newTaskList)
         }
-      }
+    }
 
 
     return (
@@ -76,7 +87,7 @@ export default function List({
                 message={notificationDetails.message} 
                 closeDialog={closeDialog}
                 timeout={notificationDetails.timeout}
-                color={notificationDetails.color}
+                status={notificationDetails.status}
             />
             <Paper shadow="xs" p="md" >
                 <Title order={2}>{listTitle}</Title>   

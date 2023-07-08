@@ -1,23 +1,21 @@
 import { Dialog, Alert, CloseButton, Group, Notification } from '@mantine/core';
-import { IconAlertCircle, IconCheck } from '@tabler/icons-react';
+import { IconAlertCircle, IconCheck, IconLetterX } from '@tabler/icons-react';
 import { useEffect } from 'react';
 
 interface NotificationDialogProps {
   opened: boolean
-  message: string,
-
-  closeDialog: () => void,
-  timeout: number,
-  color: string
+  message: string
+  status: string
+  closeDialog: () => void
+  timeout: number
 }
 
 export default function NotificationDialog ({
   opened,
   message,
-
   timeout,
+  status,
   closeDialog,
-  color
 }: NotificationDialogProps) {
 
   useEffect(() => {
@@ -28,10 +26,32 @@ export default function NotificationDialog ({
     }
   }, [timeout]);
 
+  const renderIcon = (
+    status: string
+  ) => {
+    if (status === "success") {
+      return <IconCheck />
+    } else if (status === "error") {
+      return <IconLetterX />
+    } else {
+      return undefined
+    }
+  }
+
+  const renderColor = (status: string  ) => {
+    if (status === "success") {
+      return "green"
+    } else if (status === "error") {
+      return "red"
+    } else {
+      return undefined
+    }
+  }
+
   return (
     <>
       <Dialog opened={opened} onClose={closeDialog} p={0}  size="lg" radius="md">
-        <Notification icon={<IconCheck />} color={color}>
+        <Notification icon={renderIcon(status)} color={renderColor(status)} onClose={() => closeDialog()}>
           {message}
         </Notification>
       </Dialog>

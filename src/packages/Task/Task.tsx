@@ -11,7 +11,7 @@ interface TaskProps {
         opened: boolean;
         message: string;
         timeout: number;
-        color: string;
+        status: string
     }>>
 }
 
@@ -63,17 +63,27 @@ export default function Task({
                 'Content-Type': 'application/json;charset=utf-8'
             }
         })
-            .then(response => response.json())
-            .then(data => {
-                setNotificationDetails(
-                    {
-                        opened: true,
-                        message: `Task: "${data.name}" updated!`,
-                        timeout: 3,
-                        color: "green"
-                    }
-                )
-            });
+        .then(response => response.json())
+        .then(data => {
+            setNotificationDetails(
+                {
+                    opened: true,
+                    message: `Task: "${data.name}" updated!`,
+                    timeout: 3,
+                    status: "success"
+                }
+            )
+        })
+        .catch(errors => {
+            setNotificationDetails(
+                {
+                    opened: true,
+                    message: `Something went wrong... Please try again later.`,
+                    timeout: 5,
+                    status: 'error'
+                }
+            )
+        });
     }
 
     const handleIconRender = () => {
@@ -126,10 +136,20 @@ export default function Task({
                     opened: true,
                     message: `Task: "${data.name}" deleted!`,
                     timeout: 3,
-                    color: "green"
+                    status: "success"
                 }
             )
-        });
+        })
+        .catch(errors => {
+                setNotificationDetails(
+                    {
+                        opened: true,
+                        message: `Something went wrong... Please try again later.`,
+                        timeout: 5,
+                        status: 'error'
+                    }
+                )
+            });
     }
 
     return (
