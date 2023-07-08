@@ -10,7 +10,6 @@ interface TaskProps {
     setNotificationDetails: React.Dispatch<React.SetStateAction<{
         opened: boolean;
         message: string;
-        title: string;
         timeout: number;
         color: string;
     }>>
@@ -70,7 +69,6 @@ export default function Task({
                     {
                         opened: true,
                         message: `Task: "${data.name}" updated!`,
-                        title: "Success!",
                         timeout: 3,
                         color: "green"
                     }
@@ -127,7 +125,6 @@ export default function Task({
                 {
                     opened: true,
                     message: `Task: "${data.name}" deleted!`,
-                    title: "Success!",
                     timeout: 3,
                     color: "green"
                 }

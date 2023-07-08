@@ -22,7 +22,6 @@ export default function List({
     const [notificationDetails, setNotificationDetails] = useState({
         opened: false,
         message: '',
-        title: '',
         timeout: 0,
         color: ""
     })
@@ -41,7 +40,6 @@ export default function List({
         setNotificationDetails({
             opened: false,
             message: '',
-            title: '',
             timeout: 0,
             color: ''
         })
@@ -76,7 +74,6 @@ export default function List({
             <NotificationDialog 
                 opened={notificationDetails.opened} 
                 message={notificationDetails.message} 
-                title={notificationDetails.title}
                 closeDialog={closeDialog}
                 timeout={notificationDetails.timeout}
                 color={notificationDetails.color}

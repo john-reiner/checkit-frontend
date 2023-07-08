@@ -9,7 +9,6 @@ interface NewTaskProps {
     setNotificationDetails: React.Dispatch<React.SetStateAction<{
         opened: boolean;
         message: string;
-        title: string;
         timeout: number;
         color: string;
     }>>
@@ -62,7 +61,6 @@ export default function NewTask({
                     {
                         opened: true,
                         message: `Task: "${returnedTask.name}" created!`,
-                        title: "Success!",
                         timeout: 3,
                         color: 'green'
                     }
