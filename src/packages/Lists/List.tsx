@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import { TaskType } from '../Task/types/TaskType'
-import { Stack, Divider, Paper, Title } from '@mantine/core';
-
+import { Stack, Divider, Paper, Title, Group, SegmentedControl, Button } from '@mantine/core';
 
 import Task  from '../Task/Task'
 import NewTask from '../Task/NewTask';
 import NotificationDialog from '../Global/NotificationDialog';
+import { IconEyeCheck, IconEyeOff } from '@tabler/icons-react';
 
 
 interface ListProps {
@@ -19,21 +19,29 @@ export default function List({
 }: ListProps) {
 
     const [tasks, setTasks] = useState<TaskType[]>([]);
+    const [showCompleted, setShowCompleted] = useState(false)
     const [notificationDetails, setNotificationDetails] = useState({
         opened: false,
         message: '',
         timeout: 0,
         status: "success"
     })
-
+    
     useEffect(() => {
         fetchTasks()
-    }, []);
-
+    }, [showCompleted]);
+    
+    const handleShowCompleted = () => {
+        setShowCompleted(!showCompleted)
+        // setOrganizeList(true)
+    }
+    
     const fetchTasks = () => {
         fetch(route)
         .then(response => response.json())
-        .then(data => setTasks(data))
+        .then(data => {
+            setTasks(data)
+        })
         .catch(errors => {
             setNotificationDetails(
                 {
@@ -58,16 +66,17 @@ export default function List({
 
     const renderTasks = (
     ) => {
-        if (tasks && tasks.length > 0) {
-            return tasks.map(task => {
+        return tasks.map(task => {
+            if (task.completed === showCompleted) {
                 return <Task 
                             taskProps={{...task}} 
                             key={task.id} 
                             deleteTask={deleteTask}
                             setNotificationDetails={setNotificationDetails}
                         />
-            })
-        }
+            }
+            }
+        )
     }
 
     const deleteTask = (
@@ -79,7 +88,6 @@ export default function List({
         }
     }
 
-
     return (
         <>
             <NotificationDialog 
@@ -90,7 +98,20 @@ export default function List({
                 status={notificationDetails.status}
             />
             <Paper shadow="xs" p="md" >
-                <Title order={2}>{listTitle}</Title>   
+                <Group position='apart'>
+                    <Group>
+                        <Title order={2}>{listTitle + ` (${tasks.length})`}</Title>   
+                    </Group>
+                    <Group>
+                        <Button 
+                            leftIcon={showCompleted ? <IconEyeOff /> : <IconEyeCheck />}
+                            variant={showCompleted ? "outline" : "filled"}
+                            onClick={handleShowCompleted}
+                        >
+                            {showCompleted ? "Hide Completed" : "Show Completed"}
+                        </Button>
+                    </Group>
+                </Group>
                 <Divider my="sm" />
                     <Stack spacing="xs">
                         {renderTasks()}
