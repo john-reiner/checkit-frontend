@@ -13,14 +13,12 @@ interface TaskProps {
         timeout: number;
         status: string
     }>>
-    // setOrganizeList: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function Task({
     taskProps,
     deleteTask,
     setNotificationDetails,
-    // setOrganizeList
 }: TaskProps) {
 
     const [task, setTask] = useState<TaskType>({
@@ -37,7 +35,6 @@ export default function Task({
         const newCompletedState = !task.completed
         setTask({...task, completed: newCompletedState})
         updateFetchTask({completed: newCompletedState})
-        // setOrganizeList(true)
     }
 
     const handleTaskChange = (

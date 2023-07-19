@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { TaskType } from '../Task/types/TaskType'
-import { Stack, Divider, Paper, Title, Group, SegmentedControl, Button } from '@mantine/core';
+import { Stack, Divider, Paper, Title, Group, Button } from '@mantine/core';
 
 import Task  from '../Task/Task'
 import NewTask from '../Task/NewTask';
@@ -33,7 +33,6 @@ export default function List({
     
     const handleShowCompleted = () => {
         setShowCompleted(!showCompleted)
-        // setOrganizeList(true)
     }
     
     const fetchTasks = () => {

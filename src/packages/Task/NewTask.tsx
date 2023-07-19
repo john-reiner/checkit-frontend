@@ -56,7 +56,6 @@ export default function NewTask({
         })
             .then(response => response.json())
             .then(returnedTask => {
-                console.log("HERRRREEE")
                 setTasks([...tasks, returnedTask])
                 setNotificationDetails(
                     {
